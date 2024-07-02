@@ -31,36 +31,75 @@ def get_phone(country_name):
     except LookupError:
         return str(random.randint(6, 9)) + (''.join([str(random.randint(0, 9)) for _ in range(9)]))
 
-add_dict = {
-    "India": ['New Delhi', 'Bangalore', 'Kolkata', 'Mumbai', 'Indore', 'Patna','Pune', 'Agra','Varanasi', 'Jaipur','Lucknow', 'Bhopal'],
-    "USA" : ["New York City", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Fargo", "Boise","Billings", "Topeka", "Dover", "Burlington", "Cheyenne", "Juneau", "Augusta", "Santa Fe", "Pierre", "Concord"],
-    "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Hobart", "Darwin", "Canberra", "Gold Coast", "Newcastle"],
-    "Argentina": ["Buenos Aires", "Cordoba", "Rosario", "Mendoza", "La Plata", "Mar del Plata", "San Miguel de Tucumán", "Salta", "Santa Fe", "Resistencia"],
-    "Brazil": ["Sao Paulo", "Rio de Janeiro", "Brasilia", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre"],
-    "Japan": ["Tokyo", "Yokohama", "Osaka", "Nagoya", "Sapporo", "Kyoto", "Kawasaki", "Hiroshima"],
-    "Germany": ["Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Stuttgart", "Düsseldorf", "Dortmund", "Leipzig"],
-    "South Korea": ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon", "Suwon", "Ulsan", "Changwon", "Seongnam"]
-}
+# add_dict = {
+#     "India": ['New Delhi', 'Bangalore', 'Kolkata', 'Mumbai', 'Indore', 'Patna','Pune', 'Agra','Varanasi', 'Jaipur','Lucknow', 'Bhopal'],
+#     "USA" : ["New York City", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Fargo", "Boise","Billings", "Topeka", "Dover", "Burlington", "Cheyenne", "Juneau", "Augusta", "Santa Fe", "Pierre", "Concord"],
+#     "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Hobart", "Darwin", "Canberra", "Gold Coast", "Newcastle"],
+#     "Argentina": ["Buenos Aires", "Cordoba", "Rosario", "Mendoza", "La Plata", "Mar del Plata", "San Miguel de Tucumán", "Salta", "Santa Fe", "Resistencia"],
+#     "Brazil": ["Sao Paulo", "Rio de Janeiro", "Brasilia", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre"],
+#     "Japan": ["Tokyo", "Yokohama", "Osaka", "Nagoya", "Sapporo", "Kyoto", "Kawasaki", "Hiroshima"],
+#     "Germany": ["Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Stuttgart", "Düsseldorf", "Dortmund", "Leipzig"],
+#     "South Korea": ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon", "Suwon", "Ulsan", "Changwon", "Seongnam"]
+# }
 
 
-metro = ['New Delhi', 'Bangalore', 'Kolkata', 'Mumbai',"New York City", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego","Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide","Buenos Aires", "Cordoba", "Rosario", "Mendoza", "La Plata","Sao Paulo", "Rio de Janeiro", "Brasilia", "Salvador", "Fortaleza","Tokyo", "Yokohama", "Osaka", "Nagoya", "Sapporo","Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt","Seoul", "Busan", "Incheon", "Daegu", "Daejeon"]
+# metro = ['New Delhi', 'Bangalore', 'Kolkata', 'Mumbai',"New York City", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego","Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide","Buenos Aires", "Cordoba", "Rosario", "Mendoza", "La Plata","Sao Paulo", "Rio de Janeiro", "Brasilia", "Salvador", "Fortaleza","Tokyo", "Yokohama", "Osaka", "Nagoya", "Sapporo","Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt","Seoul", "Busan", "Incheon", "Daegu", "Daejeon"]
 
-non_metro = ["Fargo", "Boise","Billings", "Topeka", "Dover", "Burlington", "Cheyenne", "Juneau", "Augusta", "Santa Fe",
-               "Pierre", "Concord",'Indore', 'Patna','Pune', 'Agra','Varanasi', 'Jaipur','Lucknow', 'Bhopal',"Hobart", "Darwin", "Canberra", "Gold Coast", "Newcastle","Mar del Plata", "San Miguel de Tucumán", "Salta", "Santa Fe", "Resistencia","Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Kyoto", "Kawasaki", "Hiroshima","Stuttgart", "Düsseldorf", "Dortmund", "Leipzig", "Suwon", "Ulsan", "Changwon", "Seongnam"]
+# non_metro = ["Fargo", "Boise","Billings", "Topeka", "Dover", "Burlington", "Cheyenne", "Juneau", "Augusta", "Santa Fe",
+#                "Pierre", "Concord",'Indore', 'Patna','Pune', 'Agra','Varanasi', 'Jaipur','Lucknow', 'Bhopal',"Hobart", "Darwin", "Canberra", "Gold Coast", "Newcastle","Mar del Plata", "San Miguel de Tucumán", "Salta", "Santa Fe", "Resistencia","Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Kyoto", "Kawasaki", "Hiroshima","Stuttgart", "Düsseldorf", "Dortmund", "Leipzig", "Suwon", "Ulsan", "Changwon", "Seongnam"]
 
-country_list=["India","USA","Australia","Argentina","Brazil","Japan","Germany","South Korea"]
+# country_list=["India","USA","Australia","Argentina","Brazil","Japan","Germany","South Korea"]
 
-# def get_country_from_city(city_name):
-#     geolocator = Nominatim(user_agent="geoapiExercises")
-#     location = geolocator.geocode(city_name, language='en')
+# for city and country column
+
+city_df = pd.read_csv('worldcities.csv')
+city_df = city_df.loc[:,["city","country"]]
+lstc = ['New Delhi','Delhi', 'Bangalore','Chennai','Kolkata', 'Mumbai', 'Indore', 'Patna','Pune', 'Agra','Varanasi', 'Jaipur','Lucknow', 'Bhopal']
+
+# adding cities
+for i in range(10000):
+    city = np.random.choice(lstc)
+    row = {'city':city,'country':'India'}
+    city_df = pd.concat([city_df,pd.DataFrame([row])],ignore_index = True)
     
-#     if location:
-#         return location.address.split(',')[-1].strip()
-#     else:
-#         return city_name
+city_df = city_df.sample(frac=1).reset_index(drop=True)
+
+# Making spell error
+
+df_city = city_df.sample(6000)
+df_country = city_df.sample(9421)
+
+def random_typo(city_name):
+    typo_type = random.choice(['replace', 'insert', 'delete'])
+    if typo_type == 'replace':
+        if not city_name:
+            return city_name
+        # Choose a random position
+        pos = random.randint(0, len(city_name) - 1)
+        # Choose a random character
+        random_char = random.choice(string.ascii_letters)
+        # Introduce the typo
+        return city_name[:pos] + random_char + city_name[pos+1:]
+    elif typo_type == 'insert':
+        if not city_name:
+            return city_name
+        pos = random.randint(0, len(city_name))
+        random_char = random.choice(string.ascii_letters)
+        return city_name[:pos] + random_char + city_name[pos:]
+    elif typo_type == 'delete':
+        if len(city_name) <= 1:
+            return city_name
+        pos = random.randint(0, len(city_name) - 1)
+        return city_name[:pos] + city_name[pos+1:]
+
+df_city['city'] = df_city['city'].apply(random_typo)
+df_country['country'] = df_country['country'].apply(random_typo)
+
+# wrong spell data insertion
+city_df = pd.concat([city_df,df_city,df_country],ignore_index=True)
+city_df = city_df.sample(frac=1).reset_index(drop=True)
 
 
-    
 add=Address()  # country and city
 fin=Finance() # bank, company, com_type, price
 date=Datetime()  # date(start=2000, end=2024), day_of_week(abbr=False) ,date.formatted_time()
@@ -72,7 +111,9 @@ person = Person()  # birthdate(min_year, max_year), email(domains=None, unique=F
 
 data=[]
 for i in range(10000):
-    country=np.random.choice(country_list)
+    # country=np.random.choice(country_list)
+    city_index = np.random.choice(range(58968))
+    city,country = city_df.loc[city_index,["city","country"]]
     data.append({
         "Customer ID" : random_code(2,6),
         "Name": person.name(),
@@ -84,7 +125,8 @@ for i in range(10000):
         "Country": country,
         "Mobile Active": random.choice([0, 1]),
         "Email Active": secrets.choice([0,1]),
-        "City": np.random.choice(add_dict[country]),
+        # "City": np.random.choice(add_dict[country]),
+        "City": city,
         
     })
 
@@ -102,28 +144,29 @@ platform_data = platform_data.reset_index(drop=True)
 # platform_data
 
 # ========================================================================================================================
-
+products = [random_code(4,4) for i in range(4517)]
 data=[]
-for i in range(4517):
+for i in range(200000):
     data.append({
         "Transaction_Amount": np.random.choice([None,fin.price(1,100),fin.price(100,1000),fin.price(1000,10000)]),
-        "Product Code": random_code(4,4),
+        # "Product Code": random_code(4,4),
+        "Product Code": [np.random.choice(products) for i in range(random.randint(0,11))]
     })
 
 product_df = pd.DataFrame(data)
 
 # getting random 2 Lakh datapoints FROM big DF
-product_df = pd.concat([product_df]*70, ignore_index=True).sample(n=200000)
+# product_df = pd.concat([product_df]*70, ignore_index=True).sample(n=200000)
 # product_df
 product_df = product_df.reset_index(drop=True)
 
 # ===========================================================================================================================
 
 data=[]
-action = ['Login','Signup','Purchase','Home Page Visit','Save for later','Shared product', 'Add to cart','order cancel']
+action = ['Login','Signup','Purchase','Home Page Visit','Save for later','Shared product', 'Add to cart','order cancel','Other']
 for i in range(200000):
     data.append({
-        "Action" : np.random.choice(action),
+        "Action" : np.random.choice(action,size=random.randint(1,4),replace=False),
         "Time Spent": date.formatted_time(),
         
     })
