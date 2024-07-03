@@ -58,6 +58,7 @@ lstc = ['New Delhi','Delhi', 'Bangalore','Chennai','Kolkata', 'Mumbai', 'Indore'
 
 # adding cities
 for i in range(10000):
+    print(61)
     city = np.random.choice(lstc)
     row = {'city':city,'country':'India'}
     city_df = pd.concat([city_df,pd.DataFrame([row])],ignore_index = True)
@@ -111,6 +112,7 @@ person = Person()  # birthdate(min_year, max_year), email(domains=None, unique=F
 
 data=[]
 for i in range(10000):
+    print(115)
     # country=np.random.choice(country_list)
     city_index = np.random.choice(range(58968))
     city,country = city_df.loc[city_index,["city","country"]]
@@ -147,10 +149,12 @@ platform_data = platform_data.reset_index(drop=True)
 products = [random_code(4,4) for i in range(4517)]
 data=[]
 for i in range(200000):
+    print(150)
     data.append({
         "Transaction_Amount": np.random.choice([None,fin.price(1,100),fin.price(100,1000),fin.price(1000,10000)]),
         # "Product Code": random_code(4,4),
         "Product Code": [np.random.choice(products) for i in range(random.randint(0,11))]
+        
     })
 
 product_df = pd.DataFrame(data)
@@ -161,6 +165,7 @@ product_df = pd.DataFrame(data)
 product_df = product_df.reset_index(drop=True)
 
 # ===========================================================================================================================
+import datetime
 
 data=[]
 action = ['Login','Signup','Purchase','Home Page Visit','Save for later','Shared product', 'Add to cart','order cancel','Other']
@@ -168,6 +173,7 @@ for i in range(200000):
     data.append({
         "Action" : np.random.choice(action,size=random.randint(1,4),replace=False),
         "Time Spent": date.formatted_time(),
+        "Date" : datetime.date.today() - datetime.timedelta(days=random.randint(1,165)),
         
     })
 
