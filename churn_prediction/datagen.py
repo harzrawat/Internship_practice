@@ -151,7 +151,7 @@ data=[]
 for i in range(200000):
     print(150)
     data.append({
-        "Transaction_Amount": np.random.choice([None,fin.price(1,100),fin.price(100,1000),fin.price(1000,10000)]),
+        "Transaction_Amount": np.random.choice([None,fin.price(1,100),fin.price(100,1000),fin.price(1000,100000)]),
         # "Product Code": random_code(4,4),
         "Product Code": [np.random.choice(products) for i in range(random.randint(0,11))]
         
