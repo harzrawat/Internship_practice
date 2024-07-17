@@ -151,18 +151,27 @@ data=[]
 for i in range(200000):
     print(150)
     data.append({
-        "Transaction_Amount": np.random.choice([None,fin.price(1,100),fin.price(100,1000),fin.price(1000,100000)]),
-        # "Product Code": random_code(4,4),
+        # "Transaction_Amount": np.random.choice([None,fin.price(1,100),fin.price(100,1000),fin.price(1000,100000)]),
         "Product Code": [np.random.choice(products) for i in range(random.randint(0,11))]
         
     })
 
 product_df = pd.DataFrame(data)
 
-# getting random 2 Lakh datapoints FROM big DF
-# product_df = pd.concat([product_df]*70, ignore_index=True).sample(n=200000)
-# product_df
+def generate_transaction_amount(income_status):
+    if income_status == '>=50k':
+        return random.uniform(100, 5000)
+    elif income_status == '<50k':
+        return random.uniform(0, 1000)
+    elif income_status == 'unemployed':
+        return random.uniform(0, 5000)
+    else:
+        return 0
+
 product_df = product_df.reset_index(drop=True)
+product_df['Transaction_Amount'] = platform_data['Income Status'].apply(generate_transaction_amount)
+# product_df
+
 
 # ===========================================================================================================================
 import datetime
